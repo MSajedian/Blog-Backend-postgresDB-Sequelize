@@ -8,11 +8,7 @@ router
   .route("/")
   .get(async (req, res, next) => {
     try {
-      const data = await Blogpost.findAll({
-        // include: [
-        //   { model: Author, through: { attributes: [] } },
-        // ],
-      });
+      const data = await Blogpost.findAll({ include: Author });
       res.send(data);
     } catch (e) {
       console.log(e);
@@ -27,35 +23,11 @@ router
     }
   });
 
-router.route("/:blogpostId/addAuthor/:authortId/").post(async (req, res, next) => {
-  try {
-    const data = await Blogpost.create({
-      blogpostId: req.params.blogpostId,
-      authorId: req.params.authorId,
-    });
-    res.send(data);
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-// router.route("/:classId/addStudent/:studentId").post(async (req, res, next) => {
-//   try {
-//     const data = await StudentClass.create({
-//       classId: req.params.classId,
-//       studentId: req.params.studentId,
-//     });
-//     res.send(data);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
-
 router
   .route("/:id")
   .get(async (req, res, next) => {
     try {
-      const data = await Blogpost.findByPk(req.params.id);
+      const data = await Blogpost.findByPk(req.params.id, { include: Author })
       res.send(data);
     } catch (e) {
       console.log(e);
