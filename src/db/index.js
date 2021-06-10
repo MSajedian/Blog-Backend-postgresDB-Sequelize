@@ -5,6 +5,8 @@ const DataTypes = s.DataTypes;
 
 import BlogpostModel from "./blogposts.js";
 import AuthorModel from "./authors.js";
+import CommentModel from "./comments.js";
+import CategoryModel from "./categories.js";
 
 // Getting Environment Variables by pg
 const { PGUSER, PGDATABASE, PGPASSWORD, PGHOST } = process.env;
@@ -31,15 +33,28 @@ const pool = new pg.Pool();
 // `sequelize` is `connection instance` (Connecting to a database)
 // `sequelize.define`s are in each functions (Student, Blogpost, Module, Author, ...)
 // `sequelize.define` returns the model
-const models = {
+const Models = {
   Author: AuthorModel(sequelize, DataTypes),
   Blogpost: BlogpostModel(sequelize, DataTypes),
+  Comment: CommentModel(sequelize, DataTypes),
+  Category: CategoryModel(sequelize, DataTypes),
   sequelize: sequelize, // We need to pass the `connection instance`
   pool: pool,
 };
 
+// One Author has many Blogposts, while each Blogpost belongs to a single Author.
 // To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
-models.Author.hasMany(models.Blogpost);
-models.Blogpost.belongsTo(models.Author);
+Models.Author.hasMany(Models.Blogpost, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' });
+Models.Blogpost.belongsTo(Models.Author);
 
-export default models;
+// One Blogpost has many Comments, while each Comment belongs to a single Blogpost.
+// To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
+Models.Blogpost.hasMany(Models.Comment, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' });
+Models.Comment.belongsTo(Models.Blogpost);
+
+// One Blogpost has many Comments, while each Comment belongs to a single Blogpost.
+// To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
+// Models.Blogpost.hasMany(Models.Comment, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' });
+// Models.Comment.belongsTo(Models.Blogpost);
+
+export default Models;
