@@ -42,19 +42,18 @@ const Models = {
   pool: pool,
 };
 
+// One Blogpost has One Category
+Models.Category.hasOne(Models.Blogpost, { onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+Models.Blogpost.belongsTo(Models.Category);
+
 // One Author has many Blogposts, while each Blogpost belongs to a single Author.
 // To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
-Models.Author.hasMany(Models.Blogpost, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' });
+Models.Author.hasMany(Models.Blogpost, { onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Models.Blogpost.belongsTo(Models.Author);
 
 // One Blogpost has many Comments, while each Comment belongs to a single Blogpost.
 // To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
-Models.Blogpost.hasMany(Models.Comment, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' });
+Models.Blogpost.hasMany(Models.Comment, { onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Models.Comment.belongsTo(Models.Blogpost);
-
-// One Blogpost has many Comments, while each Comment belongs to a single Blogpost.
-// To create a One-To-Many relationship, the hasMany and belongsTo associations are used together;
-// Models.Blogpost.hasMany(Models.Comment, { onDelete: 'RESTRICT', onUpdate: 'RESTRICT' });
-// Models.Comment.belongsTo(Models.Blogpost);
 
 export default Models;

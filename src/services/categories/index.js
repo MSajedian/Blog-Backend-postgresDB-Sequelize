@@ -1,6 +1,7 @@
-const express = require("express");
-const Product = require('../../db').Product
-const Category = require('../../db').Category
+import express from "express";
+import Models from "../../db/index.js";
+
+const Category = Models.Category
 const router = express.Router();
 
 router
@@ -52,4 +53,4 @@ router
     }
   });
 
-module.exports = router;
+export default router;
