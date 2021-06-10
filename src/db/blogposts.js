@@ -1,9 +1,9 @@
-const BlogpostesModel = (sequelize, DataTypes) => {
+const BlogpostModel = (sequelize, DataTypes) => {
   const Blogpost = sequelize.define("blogpost", {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       autoIncrement: true,
+      primaryKey: true,
     },
     category: {
       type: DataTypes.TEXT,
@@ -43,4 +43,4 @@ const BlogpostesModel = (sequelize, DataTypes) => {
 //   "content": "HTML",
 //   "created_at": "DATE"          
 // }
-export default BlogpostesModel;
+export default BlogpostModel;

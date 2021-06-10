@@ -1,7 +1,7 @@
 import express from "express";
-import models from "../../db/index.js";
-const Blogpost = models.Blogpost;
-const Author = models.Author;
+import Models from "../../db/index.js";
+const Blogpost = Models.Blogpost;
+const Author = Models.Author;
 const router = express.Router();
 
 router

@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Tutor = sequelize.define("author", {
+  const AuthorModel = sequelize.define("author", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -18,5 +18,5 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
-  return Tutor;
+  return AuthorModel;
 };
